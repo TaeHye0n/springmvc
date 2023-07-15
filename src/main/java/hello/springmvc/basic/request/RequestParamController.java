@@ -59,7 +59,20 @@ public class RequestParamController {
     public String requestParamRequired(
             @RequestParam(required = true) String username,
             @RequestParam(required = false) Integer age) {
+            //기본형은 null을 사용할 수 없기 때문에 참조타입으로 사용
+            //null과 username= 은 다르다
+        log.info("username={}, age={}", username, age);
 
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/request-param-default")
+    public String requestParamDefault(
+            @RequestParam(required = true, defaultValue = "guest") String username,
+            @RequestParam(required = false, defaultValue = "-1") int age) {
+            //defaultValue가 들어가면 required가 의미가 없음,
+            //빈 문자의 경우에도 기본 값이 적용됨
         log.info("username={}, age={}", username, age);
 
         return "ok";
